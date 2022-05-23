@@ -51,15 +51,15 @@ class ReservationInformation extends Resource
         return [
             ID::make()->sortable(),
             Date::make('Received On')->default(now())->required(),
-            Text::make('Total Eur')->rules(['required']),
-            Text::make('Total Mad', 'total_sell')->dependsOn(
+            Currency::make('Total Eur')->currency('EUR')->rules(['required']),
+            Currency::make('Total Mad', 'total_sell')->currency('MAD')->dependsOn(
                 ['total_eur'],
-                function (Text $field, NovaRequest $request, FormData $formData) {
+                function (Currency $field, NovaRequest $request, FormData $formData) {
                     $field->value = '';
                     if ($formData->total_eur != '') $field->value = $formData->total_eur * 10.5;
                 }
             )->rules(['required']),
-            Text::make('Total Buy')->rules(['required']),
+            Currency::make('Total Buy')->currency('MAD')->rules(['required']),
             Heading::make('Profit'),
             Currency::make('Amount')->currency('MAD')->dependsOn(
                 ['total_sell', 'total_buy'],
