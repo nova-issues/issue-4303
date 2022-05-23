@@ -1,20 +1,27 @@
 <?php
 
-namespace App\Nova;
+namespace App\Nova\Parameters;
 
-use Laravel\Nova\Fields\Boolean;
+use App\Nova\Resource;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class TransportCategory extends Resource
+class RoomType extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\TransportCategory::class;
+    public static $model = \App\Models\RoomType::class;
+
+    /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = false;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -42,53 +49,8 @@ class TransportCategory extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Name')->sortable()->showOnPreview()->required(),
-            Boolean::make('Active')->showOnPreview(),
+            Text::make('Name')->sortable(),
         ];
-    }
-
-    /**
-     * Get the cards available for the request.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
-     */
-    public function cards(NovaRequest $request)
-    {
-        return [];
-    }
-
-    /**
-     * Get the filters available for the resource.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
-     */
-    public function filters(NovaRequest $request)
-    {
-        return [];
-    }
-
-    /**
-     * Get the lenses available for the resource.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
-     */
-    public function lenses(NovaRequest $request)
-    {
-        return [];
-    }
-
-    /**
-     * Get the actions available for the resource.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
-     */
-    public function actions(NovaRequest $request)
-    {
-        return [];
     }
 
     /**
@@ -100,7 +62,7 @@ class TransportCategory extends Resource
      */
     public static function redirectAfterCreate(NovaRequest $request, $resource)
     {
-        return '/resources/' . static::uriKey();
+        return '/resources/hotels/'.$resource->hotel_id;
     }
 
     /**
@@ -112,6 +74,6 @@ class TransportCategory extends Resource
      */
     public static function redirectAfterUpdate(NovaRequest $request, $resource)
     {
-        return '/resources/' . static::uriKey();
+        return '/resources/hotels/'.$resource->hotel_id;
     }
 }

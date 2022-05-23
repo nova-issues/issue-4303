@@ -1,22 +1,21 @@
 <?php
 
-namespace App\Nova;
+namespace App\Nova\Parameters;
 
-use Illuminate\Http\Request;
+use App\Nova\Resource;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Circuit extends Resource
+class TransportCategory extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Circuit::class;
+    public static $model = \App\Models\TransportCategory::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -31,7 +30,7 @@ class Circuit extends Resource
      * @var array
      */
     public static $search = [
-        'name'
+        'name',
     ];
 
     /**
@@ -45,54 +44,31 @@ class Circuit extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Name')->sortable()->showOnPreview()->required(),
-            Text::make('Phone')->showOnPreview(),
-            Text::make('Email')->showOnPreview()->rules(['email']),
             Boolean::make('Active')->showOnPreview(),
-            MorphMany::make('Departments'),
         ];
     }
 
     /**
-     * Get the cards available for the request.
+     * Return the location to redirect the user after creation.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
+     * @param  \Laravel\Nova\Resource  $resource
+     * @return \Laravel\Nova\URL|string
      */
-    public function cards(NovaRequest $request)
+    public static function redirectAfterCreate(NovaRequest $request, $resource)
     {
-        return [];
+        return '/resources/' . static::uriKey();
     }
 
     /**
-     * Get the filters available for the resource.
+     * Return the location to redirect the user after creation.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
+     * @param  \Laravel\Nova\Resource  $resource
+     * @return \Laravel\Nova\URL|string
      */
-    public function filters(NovaRequest $request)
+    public static function redirectAfterUpdate(NovaRequest $request, $resource)
     {
-        return [];
-    }
-
-    /**
-     * Get the lenses available for the resource.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
-     */
-    public function lenses(NovaRequest $request)
-    {
-        return [];
-    }
-
-    /**
-     * Get the actions available for the resource.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
-     */
-    public function actions(NovaRequest $request)
-    {
-        return [];
+        return '/resources/' . static::uriKey();
     }
 }

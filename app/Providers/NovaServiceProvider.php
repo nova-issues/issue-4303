@@ -2,17 +2,18 @@
 
 namespace App\Providers;
 
-use App\Nova\Circuit;
-use App\Nova\Extra;
-use App\Nova\Hotel;
-use App\Nova\Restaurant;
-use App\Nova\TourOperator;
-use App\Nova\TransportCategory;
-use App\Nova\Transporter;
-use App\Nova\TransportService;
+use App\Nova\Parameters\Circuit;
+use App\Nova\Parameters\Extra;
+use App\Nova\Parameters\Hotel;
+use App\Nova\Parameters\Restaurant;
+use App\Nova\Parameters\TourOperator;
+use App\Nova\Parameters\TransportCategory;
+use App\Nova\Parameters\Transporter;
+use App\Nova\Parameters\TransportService;
+use App\Nova\Reservation\Reservation;
 use App\Nova\User;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Dashboards\Main;
 use Laravel\Nova\Menu\MenuGroup;
 use Laravel\Nova\Menu\MenuItem;
@@ -50,6 +51,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                     MenuItem::resource(Restaurant::class),
                     MenuItem::resource(Circuit::class),
                     MenuItem::resource(Extra::class),
+                ])->icon('cog')->collapsable(),
+                MenuSection::make('Reservations', [
+                    MenuItem::resource(Reservation::class),
                 ])->icon('cog')->collapsable(),
             ];
         });

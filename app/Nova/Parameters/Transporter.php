@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Nova;
+namespace App\Nova\Parameters;
 
-use Illuminate\Http\Request;
+use App\Nova\Resource;
 use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\Text;
@@ -49,51 +48,7 @@ class Transporter extends Resource
             Text::make('Phone')->showOnPreview(),
             Text::make('Email')->showOnPreview()->rules(['email', 'nullable']),
             Boolean::make('Active')->showOnPreview(),
-            MorphMany::make('Departments'),
+            MorphMany::make('Departments', null, Department::class),
         ];
-    }
-
-    /**
-     * Get the cards available for the request.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
-     */
-    public function cards(NovaRequest $request)
-    {
-        return [];
-    }
-
-    /**
-     * Get the filters available for the resource.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
-     */
-    public function filters(NovaRequest $request)
-    {
-        return [];
-    }
-
-    /**
-     * Get the lenses available for the resource.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
-     */
-    public function lenses(NovaRequest $request)
-    {
-        return [];
-    }
-
-    /**
-     * Get the actions available for the resource.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
-     */
-    public function actions(NovaRequest $request)
-    {
-        return [];
     }
 }
