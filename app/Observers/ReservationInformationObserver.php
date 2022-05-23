@@ -14,8 +14,8 @@ class ReservationInformationObserver
      */
     public function saving(ReservationInformation $reservationInformation)
     {
-        /*collect($reservationInformation->getGuarded())->each(function($value) use ($reservationInformation){
+        collect($reservationInformation->getGuarded())->each(function($value) use ($reservationInformation){
             unset($reservationInformation->$value);
-        });*/
+        });
     }
 }
